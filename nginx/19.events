@@ -1,0 +1,46 @@
+# Events and Worker Settings in Nginx
+
+Nginx uses a multi-process, event-driven architecture to handle many simultaneous connections efficiently.
+
+---
+
+## `worker_processes` Directive
+
+The `worker_processes` directive sets the number of worker processes Nginx will spawn. More worker processes can help Nginx handle more simultaneous connections.
+
+**Example:**
+```nginx
+worker_processes auto;
+```
+Setting it to `auto` lets Nginx choose the optimal number based on CPU cores.
+
+---
+
+## `events` Block
+
+The `events` block contains directives related to connection processing.
+
+**Example:**
+```nginx
+events {
+    worker_connections 1024;
+}
+```
+
+---
+
+## `worker_connections` Directive
+
+The `worker_connections` directive (inside the `events` block) sets the maximum number of simultaneous connections that each worker process can handle.
+
+**Example:**
+```nginx
+events {
+    worker_connections 1024;
+}
+```
+If you have 4 worker processes and 1024 worker connections, Nginx can handle up to 4096 simultaneous connections (subject to OS limits).
+
+---
+
+These settings are essential for tuning
